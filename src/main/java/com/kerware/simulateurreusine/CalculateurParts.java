@@ -10,11 +10,22 @@ public class CalculateurParts {
             case CELIBATAIRE, DIVORCE, VEUF -> 1.0;
         };
 
-        if (parentIsole && situation == SituationFamiliale.CELIBATAIRE) {
+        if (enfants > 0 && parentIsole) {
             parts += 0.5;
         }
 
-        parts += Math.min(enfants, 2) * 0.5 + Math.max(0, enfants - 2);
+        if (situation == SituationFamiliale.VEUF && enfants > 0) {
+            parts += 1.0;
+        }
+
+        if (enfants == 1) {
+            parts += 0.5;
+        } else if (enfants == 2) {
+            parts += 1.0;
+        } else if (enfants > 2) {
+            parts += 1.0 + (enfants - 2) * 1.0;
+        }
+
         parts += enfantsHandicapes * 0.5;
 
         return parts;
