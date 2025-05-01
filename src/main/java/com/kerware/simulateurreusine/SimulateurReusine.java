@@ -67,7 +67,7 @@ public class SimulateurReusine {
         decote = CalculateurDecote.calculer(impotAvantDecote, situation);
         impotNet = Math.max(0, impotAvantDecote - decote);
 
-        contributionExceptionnelle = impotNet > ConstantesFiscales2025.SEVUIL_CONTRIBUTION ?
+        contributionExceptionnelle = impotNet > ConstantesFiscales2025.SEUIL_CONTRIBUTION_EXCEPTIONNELLE ?
                 impotNet * ConstantesFiscales2025.TAUX_CONTRIBUTION_EXCEPTIONNELLE : 0;
     }
 
