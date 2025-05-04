@@ -1,19 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.kerware</groupId>
     <artifactId>SimulateurImpot2024</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -30,7 +24,8 @@
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-checkstyle-plugin</artifactId>
-            <version>3.6.0</version> <!-- Vérifie la dernière version -->
+            <version>3.6.0</version>
+            <!--  Vérifie la dernière version  -->
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
@@ -45,18 +40,16 @@
         <dependency>
             <groupId>org.apache.maven.doxia</groupId>
             <artifactId>doxia-core</artifactId>
-            <version>2.0.0</version> <!-- Ajuste selon la version compatible avec maven-site-plugin -->
+            <version>2.0.0</version>
+            <!--  Ajuste selon la version compatible avec maven-site-plugin  -->
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.doxia/doxia-sink-api -->
+        <!--  https://mvnrepository.com/artifact/org.apache.maven.doxia/doxia-sink-api  -->
         <dependency>
             <groupId>org.apache.maven.doxia</groupId>
             <artifactId>doxia-sink-api</artifactId>
             <version>2.0.0</version>
         </dependency>
-
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -64,8 +57,7 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.9.0</version>
             </plugin>
-
-            <!-- Plugin Maven de génération des rapports de tests console et rapport utilisation des @DisplayName -->
+            <!--  Plugin Maven de génération des rapports de tests console et rapport utilisation des @DisplayName  -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -92,12 +84,16 @@
                     </statelessTestsetInfoReporter>
                 </configuration>
             </plugin>
-
-            <!-- Plugin Jacoco pour la couverture de code -->
+            <!--  Plugin Jacoco pour la couverture de code  -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.10</version>
+                <configuration>
+                    <excludes>
+                        <exclude>com/kerware/simulateur/**</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -105,7 +101,7 @@
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
-                    <!-- Vérifie la couverture après l'exécution des tests -->
+                    <!--  Vérifie la couverture après l'exécution des tests  -->
                     <execution>
                         <id>check-coverage</id>
                         <goals>
@@ -114,9 +110,10 @@
                         <configuration>
                             <rules>
                                 <rule>
-                                    <element>BUNDLE</element> <!-- Vérifie toute l'application -->
+                                    <element>BUNDLE</element>
+                                    <!--  Vérifie toute l'application  -->
                                     <limits>
-                                        <!-- Définit un seuil de couverture des lignes à 80% -->
+                                        <!--  Définit un seuil de couverture des lignes à 80%  -->
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
@@ -138,7 +135,6 @@
             </plugin>
         </plugins>
     </build>
-
     <reporting>
         <plugins>
             <plugin>
@@ -159,6 +155,11 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.10</version>
+                <configuration>
+                    <excludes>
+                        <exclude>com/kerware/simulateur/**</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -168,7 +169,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.6.0</version> <!-- Vérifie la dernière version -->
+                <version>3.6.0</version>
+                <!--  Vérifie la dernière version  -->
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -177,12 +179,12 @@
                     </reportSet>
                 </reportSets>
                 <configuration>
-                    <!-- Choix de la configuration Checkstyle -->
-                    <configLocation>src/test/resources/iut-caen-checks.xml</configLocation> <!-- ou sun_checks.xml -->
+                    <!--  Choix de la configuration Checkstyle  -->
+                    <configLocation>src/test/resources/iut-caen-checks.xml</configLocation>
+                    <!--  ou sun_checks.xml  -->
                     <failsOnError>true</failsOnError>
                 </configuration>
             </plugin>
         </plugins>
     </reporting>
-
 </project>

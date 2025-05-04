@@ -1,46 +1,57 @@
-# Lisezmoi
+# Simulateur d'Impôts - Projet R4.02
 
-## Projet : Réusinage du Simulateur d'Impôts - R4.02
+## Description du projet
+Réusinage complet du simulateur d'impôts initial avec :
+- Modularisation du code en composants spécialisés
+- Amélioration de la lisibilité et de la maintenabilité
+- Conservation de la compatibilité avec les tests existants via un adaptateur
+- Respect strict des standards de qualité logicielle
 
-### Description rapide
-Ce projet a pour but de réusiner le simulateur d’impôts fourni, tout en conservant la compatibilité avec les tests existants.
-Le code a été rendu plus lisible, plus modulaire, et respecte les standards de qualité imposés par l'IUT.
+## Exigences satisfaites
 
----
+### Qualité du code
+- **Couverture de tests** : > 90% (vérifié via JaCoCo)
+- **CheckStyle** : 0 erreur/warning pour le nouveau code réusine
+- **Tests unitaires** : 100% passants avec l'adaptateur (Les 4 derniers tests du csv ne marchent pas)
 
-### Détail des modifications
-- Refactorisation du code pour améliorer la lisibilité et la maintenance
-- Modularisation : découpage du code en plusieurs classes/fichiers clairs
-- Mise en place d’un adaptateur pour faire fonctionner les tests existants sans les modifier
-- Ajout de commentaires pour assurer la traçabilité entre les exigences et le code
-- Correction des erreurs de style selon les règles fournies par l'IUT (CheckStyle)
+### Traçabilité
+Les commentaires dans le code relient explicitement :
+- Les exigences fiscales aux implémentations
+- Les formules de calcul aux articles de loi correspondants
+- Les règles métier aux constantes configurables
 
----
+## Fonctionnalités implémentées
+- Calcul de l'impôt brut par tranches
+- Calcul des abattements et décotes
+- Gestion des situations familiales complexes
+- Contribution exceptionnelle sur hauts revenus
+- Validation robuste des entrées
 
-### Qualité logicielle
-- Couverture de tests : supérieure à 90%
-- CheckStyle : aucune erreur ni warning détecté avec les règles imposées
-- Tests unitaires : tous les tests sont passants.
+## Outils utilisés
+- Java 17
+- Maven
+- JUnit 5
+- JaCoCo (couverture de code)
+- CheckStyle (vérification de qualité)
 
----
+## Membres du projet
+- **Ravida Lélyan** 
+- **Surcouf Clément**
+- **Delaunay Alix** 
 
-### Organisation des fichiers
-- src/main/ : code source refactoré
-- src/test/ : tests unitaires d’origine
-- doc/ : documentation, y compris ce fichier
 
----
 
-### Commandes utiles
-Pour lancer les tests :
-    mvn test
+## Commandes utiles
 
-Pour vérifier la qualité du code avec CheckStyle :
-    mvn checkstyle:check
+```bash
+# Lancer les tests avec couverture
+mvn clean test
 
----
+# Générer le rapport JaCoCo
+mvn jacoco:report
 
-### Trinôme
-- Ravida Lélyan 
-- Surcouf Clément
-- Delaunay Alix 
+# Vérifier la qualité du code
+mvn checkstyle:check
+
+# Générer la documentation du projet
+mvn site
