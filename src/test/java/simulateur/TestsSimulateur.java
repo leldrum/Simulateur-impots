@@ -4,8 +4,11 @@ import com.kerware.simulateur.AdaptateurSimulateur;
 import com.kerware.simulateur.ICalculateurImpot;
 import com.kerware.simulateur.SituationFamiliale;
 import com.kerware.simulateurreusine.AdaptateurSimulateurReusine;
+import com.kerware.simulateurreusine.CalculateurCEHR;
+import com.kerware.simulateurreusine.CalculateurParts;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -188,6 +191,7 @@ public class TestsSimulateur {
         simulateur.setNbEnfantsSituationHandicap( nbEnfantsSituationHandicap );
         simulateur.setParentIsole( parentIsole );
 
+
         // Act
         simulateur.calculImpotSurRevenuNet();
 
@@ -196,6 +200,20 @@ public class TestsSimulateur {
     }
 
 
+    @Test
+    @DisplayName("Test du calcul du CEHR pour un revenu élevé")
+    public void testCalculCEHRAvecRevenuEleve() {
+        // Arrange
+        double revenuFiscalReference = 1_500_000;
+        double nbParts = 1.0;
+        SituationFamiliale situation = SituationFamiliale.CELIBATAIRE;
+
+        // Act
+        double cehr = CalculateurCEHR.calculer(revenuFiscalReference, nbParts, situation);
+
+        // Assert
+        assertEquals(50000, cehr);
+    }
 
 }
 

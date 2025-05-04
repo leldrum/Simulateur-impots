@@ -3,7 +3,7 @@ package com.kerware.simulateurreusine;
 import com.kerware.simulateur.ICalculateurImpot;
 import com.kerware.simulateur.SituationFamiliale;
 
-public class AdaptateurSimulateurReusine implements ICalculateurImpot {
+public final class AdaptateurSimulateurReusine implements ICalculateurImpot {
 
     private final SimulateurReusine simulateur = new SimulateurReusine();
 
@@ -84,7 +84,8 @@ public class AdaptateurSimulateurReusine implements ICalculateurImpot {
 
     @Override
     public int getImpotSurRevenuNet() {
-        return (int) Math.round(simulateur.getImpotNet() + simulateur.getContributionExceptionnelle());
-
+        return (int) Math.round(
+                simulateur.getImpotNet() + simulateur.getContributionExceptionnelle()
+        );
     }
 }

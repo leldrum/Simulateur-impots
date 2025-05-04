@@ -3,24 +3,23 @@ package com.kerware.simulateurreusine;
 import com.kerware.simulateur.SituationFamiliale;
 
 public class CalculateurDecote {
+    private static final double SEUIL_CELIB = 1929;
+    private static final double SEUIL_COUPLE = 3191;
+    private static final double DECOTE_MAX_CELIB = 873;
+    private static final double DECOTE_MAX_COUPLE = 1444;
+    private static final double TAUX_DECOTE = 0.4525;
 
     public static double calculer(double impotBrut, SituationFamiliale situation) {
-        double seuil, maxDecote;
+        boolean isCouple = situation == SituationFamiliale.MARIE ||
+                situation == SituationFamiliale.PACSE;
 
-        if (situation == SituationFamiliale.MARIE || situation == SituationFamiliale.PACSE) {
-            seuil = 3191;
-            maxDecote = 1444;
-        } else {
-            seuil = 1929;
-            maxDecote = 873;
-        }
+        double seuil = isCouple ? SEUIL_COUPLE : SEUIL_CELIB;
+        double maxDecote = isCouple ? DECOTE_MAX_COUPLE : DECOTE_MAX_CELIB;
 
         if (impotBrut < seuil) {
-            double decote = maxDecote - (impotBrut * 0.4525);
-            return Math.round(Math.min(decote, impotBrut)); // On ne dépasse jamais l’impôt brut
+            double decote = maxDecote - (impotBrut * TAUX_DECOTE);
+            return Math.max(0, Math.round(decote));
         }
-
         return 0;
     }
 }
-
