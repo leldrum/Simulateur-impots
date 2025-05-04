@@ -84,6 +84,7 @@ public class AdaptateurSimulateurReusine implements ICalculateurImpot {
 
     @Override
     public int getImpotSurRevenuNet() {
-        return (int) simulateur.getImpotNet();
+        return (int) Math.round(simulateur.getImpotNet() + simulateur.getContributionExceptionnelle());
+
     }
 }

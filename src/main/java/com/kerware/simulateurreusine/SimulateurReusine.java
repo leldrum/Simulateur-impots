@@ -57,18 +57,52 @@ public class SimulateurReusine {
             int nbEnfants, int nbEnfantsHandicapes,
             boolean parentIsole
     ) {
-        revenuReference = revenu1 + revenu2;
+        if (revenu1 < 0 || revenu2 < 0) {
+            throw new IllegalArgumentException("Revenu négatif interdit");
+        }
+
+        if (nbEnfants < 0) {
+            throw new IllegalArgumentException("Nombre d'enfants négatif interdit");
+        }
+
+        if (nbEnfantsHandicapes < 0) {
+            throw new IllegalArgumentException("Nombre d'enfants handicapés négatif interdit");
+        }
+
+        if (situation == null) {
+            throw new IllegalArgumentException("Situation familiale null interdite");
+        }
+
+        if (nbEnfantsHandicapes > nbEnfants) {
+            throw new IllegalArgumentException("Plus d'enfants handicapés que d'enfants au total");
+        }
+
+        if (nbEnfants > 7) {
+            throw new IllegalArgumentException("Nombre d'enfants > 7 interdit");
+        }
+
+        if ((situation == SituationFamiliale.MARIE || situation == SituationFamiliale.PACSE) && parentIsole) {
+            throw new IllegalArgumentException("Parent isolé ne peut pas être marié ou pacsé");
+        }
+
+        if ((situation == SituationFamiliale.CELIBATAIRE || situation == SituationFamiliale.VEUF || situation == SituationFamiliale.DIVORCE) && revenu2 > 0) {
+            throw new IllegalArgumentException("Déclarant 2 ne peut pas avoir de revenu si le foyer est célibataire/divorcé/veuf");
+        }
+
 
         nbParts = CalculateurParts.calculer(situation, nbEnfants, nbEnfantsHandicapes, parentIsole);
-        abattement = CalculateurAbattement.calculer(revenuReference, nbParts);
+        abattement = CalculateurAbattement.calculer(revenusNetDecl1, revenusNetDecl2, situationFamiliale);
+        revenuReference = revenusNetDecl1 + revenusNetDecl2;
         double revenuImposable = revenuReference - abattement;
 
         impotAvantDecote = CalculateurImpotBrut.calculer(revenuImposable, nbParts);
         decote = CalculateurDecote.calculer(impotAvantDecote, situation);
         impotNet = Math.max(0, impotAvantDecote - decote);
 
-        contributionExceptionnelle = impotNet > ConstantesFiscales2025.SEUIL_CONTRIBUTION_EXCEPTIONNELLE ?
-                impotNet * ConstantesFiscales2025.TAUX_CONTRIBUTION_EXCEPTIONNELLE : 0;
+        contributionExceptionnelle = CalculateurCEHR.calculer(revenuReference, nbParts, situationFamiliale);
+
+
+
     }
 
     // --- GETTERS pour les résultats ---

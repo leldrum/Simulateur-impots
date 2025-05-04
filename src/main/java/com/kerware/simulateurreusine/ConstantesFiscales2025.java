@@ -19,6 +19,8 @@ public class ConstantesFiscales2025 {
     public static final double SEUIL_DECOTE_CELIBATAIRE = 888;
     public static final double SEUIL_DECOTE_COUPLE = 1467;
 
-    public static final double SEUIL_CONTRIBUTION_EXCEPTIONNELLE = 50000;
+    public static final double SEUIL_CONTRIBUTION_EXCEPTIONNELLE = 250000;
     public static final double TAUX_CONTRIBUTION_EXCEPTIONNELLE = 0.03;
+    public static final int[] TRANCHES_IMPOSITION = { 0, 11294, 28797, 82341, 177106, Integer.MAX_VALUE };
+    public static final double[] TAUX_IMPOSITION = { 0.0, 0.11, 0.3, 0.41, 0.45 };
 }
